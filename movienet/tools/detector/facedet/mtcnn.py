@@ -138,19 +138,25 @@ class MTCNN(nn.Module):
                  factor=0.709):
         super().__init__()
 
+
+        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.min_face_size = min_face_size
         self.thresholds = thresholds
         self.factor = factor
 
-        self.pnet = PNet()
-        self.rnet = RNet()
-        self.onet = ONet()
+        self.pnet = PNet().to(self.device)
+        self.rnet = RNet().to(self.device)
+        self.onet = ONet().to(self.device)
+
+ 
 
     def forward(self, imgs):
         """
         Args:
             imgs: torch tensor
         """
+
+        imgs = imgs.to(self.device)
 
         batch_size, _, h, w = imgs.shape
         m = 12.0 / self.min_face_size
@@ -185,7 +191,7 @@ class MTCNN(nn.Module):
             all_i += batch_size
 
         boxes = torch.cat(boxes, dim=0)
-        image_inds = torch.cat(image_inds, dim=0).cpu()
+        image_inds = torch.cat(image_inds, dim=0)
         all_inds = torch.cat(all_inds, dim=0)
 
         # NMS within each scale + image
@@ -194,6 +200,7 @@ class MTCNN(nn.Module):
 
         # NMS within each image
         pick = batched_nms(boxes[:, :4], boxes[:, 4], image_inds, 0.7)
+
         boxes, image_inds = boxes[pick], image_inds[pick]
 
         regw = boxes[:, 2] - boxes[:, 0]
@@ -283,7 +290,9 @@ class MTCNN(nn.Module):
         batch_boxes = []
         batch_points = []
         for b_i in range(batch_size):
-            b_i_inds = np.where(image_inds == b_i)
+            # 将涉及NumPy操作的张量临时移动到CPU上
+            b_i_inds = np.where(image_inds.cpu() == b_i)
+
             batch_boxes.append(boxes[b_i_inds].copy())
             batch_points.append(points[b_i_inds].copy())
 

@@ -1,7 +1,7 @@
 import torch
 import numpy as np
 import mmcv
-from collections import Sequence
+from collections.abc import Sequence
 from ..core.bbox2d.transforms import bbox_flip
 
 

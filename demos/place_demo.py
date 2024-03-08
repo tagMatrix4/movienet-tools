@@ -33,5 +33,4 @@ if __name__ == '__main__':
                         (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0),
                         2)
     img_show = cv2.hconcat((img_ref, img_1, img_2))
-    cv2.imshow('place', img_show)
-    cv2.waitKey()
+    cv2.imwrite('check_place.jpg', img_show)

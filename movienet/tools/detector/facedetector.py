@@ -28,7 +28,12 @@ class FaceDetector(object):
         with open(cfg_path) as f:
             cfg = json.load(f)
         model = MTCNN(**cfg)
-        load_checkpoint(model, weight_path, map_location='cpu')
+
+
+        # 检查CUDA是否可用，并据此设置map_location
+        device = 'cuda' if torch.cuda.is_available() else 'cpu'
+        load_checkpoint(model, weight_path, map_location=device)
+
         return model
 
     def detect(self, img, conf_thr=0.5, show=False):
@@ -46,9 +51,11 @@ class FaceDetector(object):
         faces = faces[keep_idx]
         landmarks = landmarks[keep_idx]
         if show:
+
             img_show = self.draw_face(img.copy(), faces, landmarks)
-            cv2.imshow('face', img_show)
-            cv2.waitKey()
+            cv2.imwrite('check_face.jpg', img_show)
+
+
         return faces, landmarks
 
     def draw_face(self, img, faces, landmarks=None):

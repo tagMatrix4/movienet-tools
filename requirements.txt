@@ -1,10 +1,10 @@
 bs4
 cython
 fake_useragent
-librosa == 0.7.2
+librosa == 0.10.1
 lxml
 mmcv == 1.0.3
-numba==0.48.0
+numba
 opencv-python
 PyHamcrest
 requests

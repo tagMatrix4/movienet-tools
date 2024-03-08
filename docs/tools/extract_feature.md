@@ -127,7 +127,7 @@ result = extractor.extract(imgs, bboxes)
 (2) Extract pipeline
 
 We also provide script for extracting multiple movies at high efficiency.
-Please refer to the [code](https://github.com/movienet/movienet-tools/blob/master/scripts/extract_action_feats.py) for help.
+Please refer to the [code](https://github.com/tagMatrix4/movienet-tools/blob/master/scripts/extract_action_feats.py) for help.
 
 The process of this pipeline will take a movie database (either videos or
 extracted frames) as input and output the per-shot action features for each movie.

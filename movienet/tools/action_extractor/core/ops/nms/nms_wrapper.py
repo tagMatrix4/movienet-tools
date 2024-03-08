@@ -1,7 +1,8 @@
 import numpy as np
 import torch
 
-from . import nms_cpu, nms_cuda
+#from . import nms_cuda
+from movienet.tools.detector.persondet.modules.core.ops.nms import nms_cuda
 
 
 def nms(dets, iou_thr, device_id=None):
@@ -21,6 +22,8 @@ def nms(dets, iou_thr, device_id=None):
         tuple: kept bboxes and indice, which is always the same data type as
             the input.
     """
+
+ 
     # convert dets (tensor or numpy array) to tensor
     if isinstance(dets, torch.Tensor):
         is_numpy = False

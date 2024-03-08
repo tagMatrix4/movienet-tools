@@ -144,14 +144,14 @@ print('EXT_TYPE', EXT_TYPE)
 ext_module_lst = []
 if EXT_TYPE == 'pytorch':
     ext_module_lst = [
-        make_cython_ext(
-            name='soft_nms_cpu',
-            module='movienet.tools.detector.persondet.modules.core.ops.nms',
-            sources=['src/soft_nms_cpu.pyx']),
-        make_cuda_ext(
-            name='nms_cpu',
-            module='movienet.tools.detector.persondet.modules.core.ops.nms',
-            sources=['src/nms_cpu.cpp']),
+        # make_cython_ext(
+        #     name='soft_nms_cpu',
+        #     module='movienet.tools.detector.persondet.modules.core.ops.nms',
+        #     sources=['src/soft_nms_cpu.pyx']),
+        # make_cuda_ext(
+        #     name='nms_cpu',
+        #     module='movienet.tools.detector.persondet.modules.core.ops.nms',
+        #     sources=['src/nms_cpu.cpp']),
         make_cuda_ext(
             name='nms_cuda',
             module='movienet.tools.detector.persondet.modules.core.ops.nms',
@@ -165,27 +165,8 @@ if EXT_TYPE == 'pytorch':
             name='roi_pool_cuda',
             module=
             'movienet.tools.detector.persondet.modules.core.ops.roi_pool',
-            sources=['src/roi_pool_cuda.cpp', 'src/roi_pool_kernel.cu']),
-        make_cython_ext(
-            name='soft_nms_cpu',
-            module='movienet.tools.action_extractor.core.ops.nms',
-            sources=['src/soft_nms_cpu.pyx']),
-        make_cuda_ext(
-            name='nms_cpu',
-            module='movienet.tools.action_extractor.core.ops.nms',
-            sources=['src/nms_cpu.cpp']),
-        make_cuda_ext(
-            name='nms_cuda',
-            module='movienet.tools.action_extractor.core.ops.nms',
-            sources=['src/nms_cuda.cpp', 'src/nms_kernel.cu']),
-        make_cuda_ext(
-            name='roi_align_cuda',
-            module='movienet.tools.action_extractor.core.ops.roi_align',
-            sources=['src/roi_align_cuda.cpp', 'src/roi_align_kernel.cu']),
-        make_cuda_ext(
-            name='roi_pool_cuda',
-            module='movienet.tools.action_extractor.core.ops.roi_pool',
             sources=['src/roi_pool_cuda.cpp', 'src/roi_pool_kernel.cu'])
+       
     ]
 print('EXT_MODULE_LIST', ext_module_lst)
 write_version_py()
@@ -195,7 +176,7 @@ setup(
     description='Some tools for movie analysis',
     long_description=readme(),
     long_description_content_type='text/markdown',
-    url='https://github.com/movienet/movienet-tools',
+    url='https://github.com/tagMatrix4/movienet-tools',
     packages=find_namespace_packages(
         exclude=('docs', 'scripts', 'local', 'tests', 'model')),
     namespace_packages=("movienet", ),
